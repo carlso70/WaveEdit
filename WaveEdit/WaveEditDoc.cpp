@@ -3,6 +3,7 @@
 //
 
 #include "stdafx.h"
+#include <iostream>
 // SHARED_HANDLERS can be defined in an ATL project implementing preview, thumbnail
 // and search filter handlers and allows sharing of document code with that project.
 #ifndef SHARED_HANDLERS
@@ -22,6 +23,10 @@
 IMPLEMENT_DYNCREATE(CWaveEditDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CWaveEditDoc, CDocument)
+	ON_COMMAND(ID_TOOLS_PLAY, &CWaveEditDoc::OnToolsPlay)
+	ON_COMMAND(ID_TOOLS_SPEEDUP, &CWaveEditDoc::OnToolsSpeedup)
+	ON_COMMAND(ID_TOOLS_SLOWDOWN, &CWaveEditDoc::OnToolsSlowdown)
+	ON_COMMAND(ID_TOOLS_ECHO, &CWaveEditDoc::OnToolsEcho)
 END_MESSAGE_MAP()
 
 
@@ -52,7 +57,7 @@ BOOL CWaveEditDoc::OnNewDocument()
 
 
 // CWaveEditDoc serialization
-
+// Ran when you use the "Open" or "Save As" or "Save" options
 void CWaveEditDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
@@ -62,6 +67,8 @@ void CWaveEditDoc::Serialize(CArchive& ar)
 	else
 	{
 		// TODO: add loading code here
+		wave.read(ar.GetFile());
+		wave.play();
 	}
 }
 
@@ -135,3 +142,36 @@ void CWaveEditDoc::Dump(CDumpContext& dc) const
 
 
 // CWaveEditDoc commands
+
+
+
+
+void CWaveEditDoc::OnToolsPlay()
+{
+	// TODO: Add your command handler code here
+	wave.play();
+}
+
+
+void CWaveEditDoc::OnToolsSpeedup()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void CWaveEditDoc::OnToolsSlowdown()
+{
+	// TODO: Add your command handler code here
+
+}
+
+
+void CWaveEditDoc::OnToolsEcho()
+{
+	// TODO: Add your command handler code here
+	std::cout << "ECHO ECHO ECHO";
+	
+	WaveFile* echo = wave.echo(.2, .1);
+	echo->play();
+
+}
