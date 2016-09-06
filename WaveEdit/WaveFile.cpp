@@ -278,3 +278,39 @@ WaveFile *WaveFile::echo(float echoAmount, float delayms)
 	return w2;
 
 }
+
+WaveFile* WaveFile::slowDown(float speed) 
+{
+	WaveFile *w2 = new WaveFile(numChannels, sampleRate / speed, bitsPerSample);
+
+	int t = 0;
+	int speedsample = sampleRate * (speed / 1000);
+	while (t < lastSample) {
+		float value = get_sample((int)t);
+		w2->add_sample((int)((1-speed)*value - speedsample));
+		t++;
+	}
+
+	w2->updateHeader();
+
+	return w2;
+}
+
+WaveFile* WaveFile::speedUp(float speed)
+{
+	WaveFile *w2 = new WaveFile(numChannels, sampleRate * speed, bitsPerSample);
+
+	int t = 0;
+	//int speedsample = sampleRate * (speed / 1000);
+	int speedsample = sampleRate * speed;
+
+	while (t < lastSample) {
+		float value = get_sample((int)t);
+		w2->add_sample((int)((1+speed)*value - speedsample));
+		t++;
+	}
+
+	w2->updateHeader();
+
+	return w2;
+}

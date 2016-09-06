@@ -155,20 +155,28 @@ void CWaveEditDoc::OnToolsPlay()
 
 void CWaveEditDoc::OnToolsSpeedup()
 {
-	// TODO: Add your command handler code here
+	std::cout << "Speed Up" << std::endl;
+
+	WaveFile* speed = new WaveFile();
+	speed = wave.speedUp(1);
+	speed->play();
+
 }
 
 
 void CWaveEditDoc::OnToolsSlowdown()
 {
-	// TODO: Add your command handler code here
+	std::cout << "Slow Down" << std::endl;
+	
+	WaveFile* slow = new WaveFile();
+	slow = wave.slowDown(2);
+	slow->play();
 
 }
 
 
 void CWaveEditDoc::OnToolsEcho()
 {
-	// TODO: Add your command handler code here
 	std::cout << "ECHO ECHO ECHO";
 
 	// Right now have a copy of both the original and the new echo version
