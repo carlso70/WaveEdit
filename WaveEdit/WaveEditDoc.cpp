@@ -170,8 +170,10 @@ void CWaveEditDoc::OnToolsEcho()
 {
 	// TODO: Add your command handler code here
 	std::cout << "ECHO ECHO ECHO";
-	
-	WaveFile* echo = wave.echo(.2, .1);
+
+	// Right now have a copy of both the original and the new echo version
+	WaveFile* echo = new WaveFile();
+	echo = wave.echo(.7, 15);
 	echo->play();
 
 }
