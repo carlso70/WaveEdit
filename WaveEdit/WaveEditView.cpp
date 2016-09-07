@@ -29,6 +29,7 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_MOUSEMOVE()
+	ON_WM_CONTEXTMENU()
 END_MESSAGE_MAP()
 
 // CWaveEditView construction/destruction
@@ -194,4 +195,50 @@ void CWaveEditView::OnMouseMove(UINT nFlags, CPoint point)
 		selectionEnd = point.x;
 		RedrawWindow();
 	}
+}
+
+void CWaveEditView::OnEditCut()
+{
+	/*
+	CWaveEditDoc* pDoc = GetDocument();
+
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+	WaveFile* wave = pDoc->wave;
+
+	if (wave->hdr == nullptr) return;
+
+	//Get Dimensions of the current window
+	CRect rect;
+	GetClientRect(rect);
+
+	//Scale the start section
+	double start = (1000 * wave->lastSample / wave->sampleRate) * this->selectionStart / rect.Width();
+
+	// Scale the end section
+	double end = (1000 * wave->lastSample / wave->sampleRate) * this->selectionEnd / rect.Width();
+
+	//copy the first fragmet
+	clipboard = wave->get_fragment(start, end);
+
+	//copy the clipboard
+	WaveFile* w2 = wave->remove_fragment(start, end);
+
+	//Remove old wave
+	delete wave;
+
+	// Substitute old wave with new one
+	pDoc->wave = *w2;
+
+	// Update window
+	this->RedrawWindow();
+	*/
+}
+
+
+void CWaveEditView::OnContextMenu(CWnd* pWnd, CPoint point)
+{
+	// TODO: Add your message handler code here
+	CMenu cutCopyPaste;
 }

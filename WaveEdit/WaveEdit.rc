@@ -183,6 +183,16 @@ BEGIN
     END
 END
 
+IDR_MENU1 MENU
+BEGIN
+    POPUP "Cut"
+    BEGIN
+        MENUITEM "Copy",                        ID_CUT_COPY
+        MENUITEM "Past",                        ID_CUT_PAST
+        MENUITEM "",                            ID_Menu
+    END
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

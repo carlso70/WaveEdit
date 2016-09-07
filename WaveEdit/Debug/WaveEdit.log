@@ -1,7 +1,9 @@
 ﻿  WaveEditView.cpp
-c:\users\jimmy\source\repos\waveedit\waveedit\waveeditview.cpp(100): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\waveeditview.cpp(101): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Generating Code...
   Skipping... (no relevant changes detected)
+  WaveEditDoc.cpp
+  MainFrm.cpp
+  ChildFrm.cpp
   WaveEdit.cpp
-  WaveEdit.vcxproj -> C:\Users\Jimmy\Source\Repos\WaveEdit\Debug\WaveEdit.exe
-  WaveEdit.vcxproj -> C:\Users\Jimmy\Source\Repos\WaveEdit\Debug\WaveEdit.pdb (Full PDB)
+  WaveEdit.vcxproj -> C:\Users\panth\OneDrive\documents\visual studio 2015\Projects\WaveEdit\Debug\WaveEdit.exe
