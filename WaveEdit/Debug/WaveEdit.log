@@ -1,10 +1,7 @@
 ﻿  WaveEditView.cpp
-  WaveEditDoc.cpp
-c:\users\jimmy\source\repos\waveedit\waveedit\waveeditdoc.cpp(172): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\jimmy\source\repos\waveedit\waveedit\waveeditdoc.cpp(184): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jimmy\source\repos\waveedit\waveedit\waveeditview.cpp(100): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Generating Code...
-  Compiling...
+  Skipping... (no relevant changes detected)
   WaveEdit.cpp
-  Generating Code...
   WaveEdit.vcxproj -> C:\Users\Jimmy\Source\Repos\WaveEdit\Debug\WaveEdit.exe
   WaveEdit.vcxproj -> C:\Users\Jimmy\Source\Repos\WaveEdit\Debug\WaveEdit.pdb (Full PDB)

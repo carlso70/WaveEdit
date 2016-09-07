@@ -36,6 +36,9 @@ END_MESSAGE_MAP()
 CWaveEditView::CWaveEditView()
 {
 	// TODO: add construction code here
+	mousePressed = false;
+	selectionStart = 0;
+	selectionEnd = 0;
 
 }
 
@@ -69,6 +72,17 @@ void CWaveEditView::OnDraw(CDC* pDC)
 	CRect rect;
 	GetClientRect(rect);
 
+	//Set color in pen and brush for the selection
+	COLORREF penColor = RGB(255, 200, 200);
+	CPen pen1(PS_SOLID, 0, penColor);
+	pDC->SelectObject(&pen1);
+	CBrush brush1(penColor);
+	pDC->SelectObject(&brush1);
+
+	// Draw selection if there is any
+	if (selectionStart != selectionEnd)
+		pDC->Rectangle(selectionStart, 0, selectionEnd, rect.Height());
+	
 	// Set pen and brush color for wave
 	COLORREF color = RGB(0, 255, 0);
 	CPen pen2(PS_SOLID, 0, color);
@@ -86,9 +100,10 @@ void CWaveEditView::OnDraw(CDC* pDC)
 		float val = wave->get_sample((int)(x * wave->lastSample / rect.Width()));
 		// We need to fit the sound also in the y axis. The y axis goes from 0 in the
 		//top of the window to rect.Height at the bottom. the sound goes from -32768 to 32767
-		int y = (int)((val + 32768) * (rect.Height() - y));
+		int y = (int)((val + 32768) * (rect.Height() - 1)/ (32767 + 32768));
+		pDC->LineTo(x, rect.Height() - y);
 	}
-	
+
 
 }
 
@@ -152,7 +167,9 @@ CWaveEditDoc* CWaveEditView::GetDocument() const // non-debug version is inline
 void CWaveEditView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
-
+	mousePressed = true;
+	selectionStart = point.x;
+	selectionEnd = point.x;
 	CScrollView::OnLButtonDown(nFlags, point);
 }
 
@@ -160,6 +177,9 @@ void CWaveEditView::OnLButtonDown(UINT nFlags, CPoint point)
 void CWaveEditView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
+	mousePressed = false;
+	this->selectionEnd = point.x;
+	this->RedrawWindow();
 
 	CScrollView::OnLButtonUp(nFlags, point);
 }
@@ -168,6 +188,10 @@ void CWaveEditView::OnLButtonUp(UINT nFlags, CPoint point)
 void CWaveEditView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
-
 	CScrollView::OnMouseMove(nFlags, point);
+
+	if (mousePressed) {
+		selectionEnd = point.x;
+		RedrawWindow();
+	}
 }

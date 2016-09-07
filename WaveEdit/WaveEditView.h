@@ -7,6 +7,10 @@
 
 class CWaveEditView : public CScrollView
 {
+	bool mousePressed;
+	int selectionStart; //Selected sample start
+	int selectionEnd; //Selected sample end
+
 protected: // create from serialization only
 	CWaveEditView();
 	DECLARE_DYNCREATE(CWaveEditView)
