@@ -158,7 +158,7 @@ void CWaveEditDoc::OnToolsSpeedup()
 	std::cout << "Speed Up" << std::endl;
 
 	WaveFile* speed = new WaveFile();
-	speed = wave.speedUp(1);
+	speed = wave.speedUp(2);
 	speed->play();
 
 }
@@ -169,7 +169,7 @@ void CWaveEditDoc::OnToolsSlowdown()
 	std::cout << "Slow Down" << std::endl;
 	
 	WaveFile* slow = new WaveFile();
-	slow = wave.slowDown(2);
+	slow = wave.slowDown(1.8);
 	slow->play();
 
 }

@@ -279,6 +279,7 @@ WaveFile *WaveFile::echo(float echoAmount, float delayms)
 
 }
 
+/*
 WaveFile* WaveFile::slowDown(float speed) 
 {
 	WaveFile *w2 = new WaveFile(numChannels, sampleRate / speed, bitsPerSample);
@@ -295,14 +296,48 @@ WaveFile* WaveFile::slowDown(float speed)
 
 	return w2;
 }
+*/
+
+WaveFile* WaveFile::slowDown(float speed) 
+{
+	WaveFile *w2 = new WaveFile(numChannels, sampleRate / speed, bitsPerSample);
+
+	int t = 0;
+	while (t < lastSample) {
+		float value = get_sample((int)t);
+		w2->add_sample((int)value);
+		t++;
+	}
+
+	w2->updateHeader();
+
+	return w2;
+}
 
 WaveFile* WaveFile::speedUp(float speed)
 {
 	WaveFile *w2 = new WaveFile(numChannels, sampleRate * speed, bitsPerSample);
 
 	int t = 0;
-	//int speedsample = sampleRate * (speed / 1000);
-	int speedsample = sampleRate * speed;
+	while (t < lastSample) {
+		float value = get_sample((int)t);
+		w2->add_sample((int)value);
+		t++;
+	}
+
+	w2->updateHeader();
+
+	return w2;
+}
+
+/*
+WaveFile* WaveFile::speedUp(float speed)
+{
+	WaveFile *w2 = new WaveFile(numChannels, sampleRate * speed, bitsPerSample);
+
+	int t = 0;
+	int speedsample = sampleRate * (speed * 1000);
+	//int speedsample = sampleRate * speed;
 
 	while (t < lastSample) {
 		float value = get_sample((int)t);
@@ -314,3 +349,4 @@ WaveFile* WaveFile::speedUp(float speed)
 
 	return w2;
 }
+*/

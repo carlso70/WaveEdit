@@ -26,6 +26,9 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
+	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 // CWaveEditView construction/destruction
@@ -50,7 +53,7 @@ BOOL CWaveEditView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CWaveEditView drawing
 
-void CWaveEditView::OnDraw(CDC* /*pDC*/)
+void CWaveEditView::OnDraw(CDC* pDC)
 {
 	CWaveEditDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -58,8 +61,50 @@ void CWaveEditView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: add draw code for native data here
+	WaveFile * wave = &pDoc->wave;
+
+	if (wave->hdr == NULL) return;
+
+	// Get dimensions of the window
+	CRect rect;
+	GetClientRect(rect);
+
+	// Set pen and brush color for wave
+	COLORREF color = RGB(0, 255, 0);
+	CPen pen2(PS_SOLID, 0, color);
+	pDC->SelectObject(&pen2);
+	CBrush brush2(color);
+	pDC->SelectObject(&brush2);
+
+	// Draw the wave
+	pDC->MoveTo(0, 0);
+	int x;
+	for (x = 0; x < rect.Width(); x++)
+	{
+		// assuming the whole file will be fit in the window, for every x value in the window
+		// we need to find the equivalent sample in the wave file
+		float val = wave->get_sample((int)(x * wave->lastSample / rect.Width()));
+		// We need to fit the sound also in the y axis. The y axis goes from 0 in the
+		//top of the window to rect.Height at the bottom. the sound goes from -32768 to 32767
+		int y = (int)((val + 32768) * (rect.Height() - y));
+	}
+	
+
 }
 
+// Set the scroll extent
+
+void CWaveEditView::OnInitialUpdate()
+{
+	CScrollView::OnInitialUpdate();
+
+	// init scroll sizes
+	CSize sizeTotal;
+	sizeTotal.cx = 10000;
+	sizeTotal.cy = 10000;
+	SetScrollSizes(MM_TEXT, sizeTotal);
+
+}
 
 // CWaveEditView printing
 
@@ -102,3 +147,27 @@ CWaveEditDoc* CWaveEditView::GetDocument() const // non-debug version is inline
 
 
 // CWaveEditView message handlers
+
+
+void CWaveEditView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	CScrollView::OnLButtonDown(nFlags, point);
+}
+
+
+void CWaveEditView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	CScrollView::OnLButtonUp(nFlags, point);
+}
+
+
+void CWaveEditView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	CScrollView::OnMouseMove(nFlags, point);
+}
