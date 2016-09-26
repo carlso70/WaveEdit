@@ -162,6 +162,8 @@ BEGIN
     BEGIN
         MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
         MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM "Zoom In",                     ID_VIEW_ZOOMIN
+        MENUITEM "Zoom Out",                    ID_VIEW_ZOOMOUT
     END
     POPUP "&Window"
     BEGIN
@@ -180,16 +182,6 @@ BEGIN
         MENUITEM "Speed Up",                    ID_TOOLS_SPEEDUP
         MENUITEM "Slow Down",                   ID_TOOLS_SLOWDOWN
         MENUITEM "Echo",                        ID_TOOLS_ECHO
-    END
-END
-
-IDR_MENU1 MENU
-BEGIN
-    POPUP "Cut"
-    BEGIN
-        MENUITEM "Copy",                        ID_CUT_COPY
-        MENUITEM "Past",                        ID_CUT_PAST
-        MENUITEM "",                            ID_Menu
     END
 END
 

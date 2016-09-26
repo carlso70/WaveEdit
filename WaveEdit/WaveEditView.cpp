@@ -34,6 +34,8 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CView)
 	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_EDIT_CUT, &CWaveEditView::OnEditCut)
 	ON_COMMAND(ID_EDIT_PASTE, &CWaveEditView::OnEditPaste)
+	ON_COMMAND(ID_VIEW_ZOOMIN, &CWaveEditView::OnViewZoomin)
+	ON_COMMAND(ID_VIEW_ZOOMOUT, &CWaveEditView::OnViewZoomout)
 END_MESSAGE_MAP()
 
 // CWaveEditView construction/destruction
@@ -44,6 +46,7 @@ CWaveEditView::CWaveEditView()
 	mousePressed = false;
 	selectionStart = 0;
 	selectionEnd = 0;
+	zoom = 1;
 
 }
 
@@ -98,18 +101,20 @@ void CWaveEditView::OnDraw(CDC* pDC)
 	// Draw the wave
 	pDC->MoveTo(0, 0);
 	int x;
-	for (x = 0; x < rect.Width(); x++)
+	for (x = 0; x < zoom * wave->lastSample/drawScale; x++)
 	{
 		// assuming the whole file will be fit in the window, for every x value in the window
 		// we need to find the equivalent sample in the wave file
-		float val = wave->get_sample((int)(x * wave->lastSample / rect.Width()));
+		float val = wave->get_sample((int)(x*drawScale/zoom));
 		// We need to fit the sound also in the y axis. The y axis goes from 0 in the
 		//top of the window to rect.Height at the bottom. the sound goes from -32768 to 32767
 		int y = (int)((val + 32768) * (rect.Height() - 1) / (32767 + 32768));
 		pDC->LineTo(x, rect.Height() - y);
 	}
 
-
+	CSize sizeTotal;
+	sizeTotal.cx = x;
+	SetScrollSizes(MM_TEXT, sizeTotal);
 }
 
 // Set the scroll extent
@@ -120,9 +125,14 @@ void CWaveEditView::OnInitialUpdate()
 
 	// init scroll sizes
 	CSize sizeTotal;
-	sizeTotal.cx = 10000;
-	sizeTotal.cy = 10000;
 	SetScrollSizes(MM_TEXT, sizeTotal);
+
+	// Set scaling
+	CRect rect;
+	GetClientRect(rect);
+	CWaveEditDoc *pDoc = GetDocument();
+	WaveFile wave = pDoc->wave;
+	drawScale = wave.lastSample / rect.Width();
 
 }
 
@@ -201,12 +211,6 @@ void CWaveEditView::OnMouseMove(UINT nFlags, CPoint point)
 	}
 }
 
-void CWaveEditView::OnContextMenu(CWnd* pWnd, CPoint point)
-{
-	// TODO: Add your message handler code here
-	CMenu cutCopyPaste;
-}
-
 
 void CWaveEditView::OnEditCut()
 {
@@ -273,11 +277,24 @@ void CWaveEditView::OnEditPaste()
 
 	//Scale the start section
 	double start = (1000 * wave->lastSample / wave->sampleRate) * this->selectionStart / rect.Width();
-	
+
 	if (clipboard != nullptr) {
 		WaveFile* w2 = wave->insert_fragment(clipboard, start);
 		pDoc->wave = *w2;
 	}
 	// Update window 
+	this->RedrawWindow();
+}
+
+void CWaveEditView::OnViewZoomin()
+{
+	zoom = zoom * 2;
+	this->RedrawWindow();
+}
+
+
+void CWaveEditView::OnViewZoomout()
+{
+	zoom = zoom / 2;
 	this->RedrawWindow();
 }

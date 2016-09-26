@@ -11,6 +11,8 @@ class CWaveEditView : public CScrollView
 	int selectionStart; //Selected sample start
 	int selectionEnd; //Selected sample end
 	WaveFile* clipboard;
+	double zoom; // amount of zoom
+	double drawScale; //scale at which we draw the waves
 
 protected: // create from serialization only
 	CWaveEditView();
@@ -50,9 +52,10 @@ public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
-	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
 	afx_msg void OnEditCut();
 	afx_msg void OnEditPaste();
+	afx_msg void OnViewZoomin();
+	afx_msg void OnViewZoomout();
 };
 
 #ifndef _DEBUG  // debug version in WaveEditView.cpp
