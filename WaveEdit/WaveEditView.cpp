@@ -11,6 +11,8 @@
 
 #include "WaveEditDoc.h"
 #include "WaveEditView.h"
+#include <sstream>
+#include <Windows.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -30,6 +32,8 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CView)
 	ON_WM_LBUTTONUP()
 	ON_WM_MOUSEMOVE()
 	ON_WM_CONTEXTMENU()
+	ON_COMMAND(ID_EDIT_CUT, &CWaveEditView::OnEditCut)
+	ON_COMMAND(ID_EDIT_PASTE, &CWaveEditView::OnEditPaste)
 END_MESSAGE_MAP()
 
 // CWaveEditView construction/destruction
@@ -83,7 +87,7 @@ void CWaveEditView::OnDraw(CDC* pDC)
 	// Draw selection if there is any
 	if (selectionStart != selectionEnd)
 		pDC->Rectangle(selectionStart, 0, selectionEnd, rect.Height());
-	
+
 	// Set pen and brush color for wave
 	COLORREF color = RGB(0, 255, 0);
 	CPen pen2(PS_SOLID, 0, color);
@@ -101,7 +105,7 @@ void CWaveEditView::OnDraw(CDC* pDC)
 		float val = wave->get_sample((int)(x * wave->lastSample / rect.Width()));
 		// We need to fit the sound also in the y axis. The y axis goes from 0 in the
 		//top of the window to rect.Height at the bottom. the sound goes from -32768 to 32767
-		int y = (int)((val + 32768) * (rect.Height() - 1)/ (32767 + 32768));
+		int y = (int)((val + 32768) * (rect.Height() - 1) / (32767 + 32768));
 		pDC->LineTo(x, rect.Height() - y);
 	}
 
@@ -197,15 +201,24 @@ void CWaveEditView::OnMouseMove(UINT nFlags, CPoint point)
 	}
 }
 
+void CWaveEditView::OnContextMenu(CWnd* pWnd, CPoint point)
+{
+	// TODO: Add your message handler code here
+	CMenu cutCopyPaste;
+}
+
+
 void CWaveEditView::OnEditCut()
 {
-	/*
+	// TODO: Add your command handler code here
 	CWaveEditDoc* pDoc = GetDocument();
+
+	OutputDebugStringW(L"My output string.");
 
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-	WaveFile* wave = pDoc->wave;
+	WaveFile* wave = &pDoc->wave;
 
 	if (wave->hdr == nullptr) return;
 
@@ -219,6 +232,12 @@ void CWaveEditView::OnEditCut()
 	// Scale the end section
 	double end = (1000 * wave->lastSample / wave->sampleRate) * this->selectionEnd / rect.Width();
 
+	if (start > end) {
+		double i = end;
+		end = start;
+		start = i;
+	}
+
 	//copy the first fragmet
 	clipboard = wave->get_fragment(start, end);
 
@@ -226,19 +245,39 @@ void CWaveEditView::OnEditCut()
 	WaveFile* w2 = wave->remove_fragment(start, end);
 
 	//Remove old wave
-	delete wave;
+	//delete wave;
 
 	// Substitute old wave with new one
 	pDoc->wave = *w2;
 
 	// Update window
 	this->RedrawWindow();
-	*/
 }
 
 
-void CWaveEditView::OnContextMenu(CWnd* pWnd, CPoint point)
+void CWaveEditView::OnEditPaste()
 {
-	// TODO: Add your message handler code here
-	CMenu cutCopyPaste;
+	// TODO: Add your command handler code here
+	CWaveEditDoc* pDoc = GetDocument();
+
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+
+	WaveFile* wave = &pDoc->wave;
+
+	if (wave->hdr == nullptr) return;
+
+	CRect rect;
+	GetClientRect(rect);
+
+	//Scale the start section
+	double start = (1000 * wave->lastSample / wave->sampleRate) * this->selectionStart / rect.Width();
+	
+	if (clipboard != nullptr) {
+		WaveFile* w2 = wave->insert_fragment(clipboard, start);
+		pDoc->wave = *w2;
+	}
+	// Update window 
+	this->RedrawWindow();
 }

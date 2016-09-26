@@ -206,7 +206,7 @@ void WaveFile::tone(int frequency, int msecs) {
 	// Generate data
 	unsigned int numSamples = msecs * sampleRate / 1000;
 	int i;
-	for (i = 0; i<numSamples; i++) {
+	for (i = 0; i < numSamples; i++) {
 		short value = 32767 * sin(3.1415*frequency*i / sampleRate);
 		add_sample(value);
 	}
@@ -233,7 +233,7 @@ WaveFile* WaveFile::multiply_freq(double k, int durationms)
 	}
 
 	// Put silence in this duration
-	for (; i<maxSamples; i++) {
+	for (; i < maxSamples; i++) {
 		w2->add_sample(0);
 	}
 
@@ -279,26 +279,7 @@ WaveFile *WaveFile::echo(float echoAmount, float delayms)
 
 }
 
-/*
-WaveFile* WaveFile::slowDown(float speed) 
-{
-	WaveFile *w2 = new WaveFile(numChannels, sampleRate / speed, bitsPerSample);
-
-	int t = 0;
-	int speedsample = sampleRate * (speed / 1000);
-	while (t < lastSample) {
-		float value = get_sample((int)t);
-		w2->add_sample((int)((1-speed)*value - speedsample));
-		t++;
-	}
-
-	w2->updateHeader();
-
-	return w2;
-}
-*/
-
-WaveFile* WaveFile::slowDown(float speed) 
+WaveFile* WaveFile::slowDown(float speed)
 {
 	WaveFile *w2 = new WaveFile(numChannels, sampleRate / speed, bitsPerSample);
 
@@ -330,23 +311,51 @@ WaveFile* WaveFile::speedUp(float speed)
 	return w2;
 }
 
-/*
-WaveFile* WaveFile::speedUp(float speed)
-{
-	WaveFile *w2 = new WaveFile(numChannels, sampleRate * speed, bitsPerSample);
+WaveFile* WaveFile::get_fragment(double start, double end) {
+	WaveFile* frag = new WaveFile(this->numChannels, this->sampleRate, this->bitsPerSample);
 
-	int t = 0;
-	int speedsample = sampleRate * (speed * 1000);
-	//int speedsample = sampleRate * speed;
+	int i = start * sampleRate / 1000;
 
-	while (t < lastSample) {
-		float value = get_sample((int)t);
-		w2->add_sample((int)((1+speed)*value - speedsample));
-		t++;
+	while (i < end * sampleRate / 1000) {
+		frag->add_sample(get_sample(i));
+		++i;
+	}
+	frag->updateHeader();
+	return frag;
+}
+
+WaveFile* WaveFile::remove_fragment(double start, double end) {
+	WaveFile* frag = new WaveFile(this->numChannels, this->sampleRate, this->bitsPerSample);
+	int i = 0;
+
+	for (i; i < lastSample; i++) {
+		if (i < start * sampleRate / 1000 || i > end * sampleRate / 1000)
+			frag->add_sample(get_sample(i));
 	}
 
-	w2->updateHeader();
-
-	return w2;
+	frag->updateHeader();
+	return frag;
 }
-*/
+
+WaveFile* WaveFile::insert_fragment(WaveFile* toInsert, double start) {
+	WaveFile* wave = new WaveFile(this->numChannels, this->sampleRate, this->bitsPerSample);
+	int i, j;
+	// Insert old wave first part
+	for (i = 0; i < start * sampleRate / 1000; i++) {
+		wave->add_sample(get_sample(i));
+	}
+
+	// Add the new wave parts
+	for (j = 0; j < toInsert->lastSample; j++) {
+		wave->add_sample(toInsert->get_sample(j));
+	}
+
+	// Finish inserting the last part of the old wave
+	while (i < lastSample) {
+		wave->add_sample(get_sample(i));
+		++i;
+	}
+
+	wave->updateHeader();
+	return wave;
+}

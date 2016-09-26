@@ -36,6 +36,7 @@ CWaveEditDoc::CWaveEditDoc()
 {
 	// TODO: add one-time construction code here
 
+
 }
 
 CWaveEditDoc::~CWaveEditDoc()

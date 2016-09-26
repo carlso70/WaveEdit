@@ -83,4 +83,13 @@ public:
 	// Slow down the sound of the WaveFile
 	// speed is a constant greater than 0 with the amount that it will be slowed down
 	WaveFile* slowDown(float speed);
+
+	// Get fragment of wavefile
+	WaveFile* get_fragment(double startms, double endms);
+
+	// Remove a fragment of wavefile
+	WaveFile* remove_fragment(double start, double end);
+
+	// Insert a frament fo a WaveFile into the this wave
+	WaveFile* insert_fragment(WaveFile* toInsert, double start);
 };
