@@ -1,12 +1,13 @@
 
 // WaveEditView.h : interface of the CWaveEditView class
-//
 
 #pragma once
 #include <stack>
+#include "WaveFile.h"
 
 class CWaveEditView : public CScrollView
 {
+	friend class WaveFile;
 	bool mousePressed;
 	int selectionStart; //Selected sample start
 	int selectionEnd; //Selected sample end
@@ -21,8 +22,7 @@ class CWaveEditView : public CScrollView
 	void deleteStack(std::stack<WaveFile*> &stack);
 
 protected: // create from serialization only
-	CWaveEditView();
-	~CWaveEditView();
+	
 	DECLARE_DYNCREATE(CWaveEditView)
 
 // Attributes
@@ -44,6 +44,7 @@ protected:
 
 // Implementation
 public:
+	CWaveEditView();
 	virtual ~CWaveEditView();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
@@ -64,6 +65,8 @@ public:
 	afx_msg void OnViewZoomin();
 	afx_msg void OnViewZoomout();
 	afx_msg void OnEditCopy();
+	afx_msg void OnEditUndo();
+	afx_msg void OnEditRedo();
 };
 
 #ifndef _DEBUG  // debug version in WaveEditView.cpp

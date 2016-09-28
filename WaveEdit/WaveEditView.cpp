@@ -37,6 +37,8 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CScrollView)
 	ON_COMMAND(ID_VIEW_ZOOMIN, &CWaveEditView::OnViewZoomin)
 	ON_COMMAND(ID_VIEW_ZOOMOUT, &CWaveEditView::OnViewZoomout)
 	ON_COMMAND(ID_EDIT_COPY, &CWaveEditView::OnEditCopy)
+	ON_COMMAND(ID_EDIT_UNDO, &CWaveEditView::OnEditUndo)
+	ON_COMMAND(ID_EDIT_REDO, &CWaveEditView::OnEditRedo)
 END_MESSAGE_MAP()
 
 // CWaveEditView construction/destruction
@@ -53,10 +55,11 @@ CWaveEditView::~CWaveEditView()
 {
 	deleteStack(undoStack);
 	deleteStack(redoStack);
+	delete clipboard;
 }
 
 void CWaveEditView::deleteStack(std::stack<WaveFile*> &stack) {
-	while (stack.empty != true) {
+	while (stack.empty() != true) {
 		delete stack.top();
 		stack.pop();
 	}
@@ -224,7 +227,6 @@ void CWaveEditView::OnMouseMove(UINT nFlags, CPoint point)
 
 void CWaveEditView::OnEditCut()
 {
-	// TODO: Add your command handler code here
 	CWaveEditDoc* pDoc = GetDocument();
 
 	ASSERT_VALID(pDoc);
@@ -254,6 +256,10 @@ void CWaveEditView::OnEditCut()
 
 	//copy the clipboard
 	WaveFile* w2 = wave->remove_fragment(start, end);
+		
+	// Undo operations, add the current document wave to the undo stack
+	undoStack.push(wave);
+	deleteStack(redoStack);
 
 	//Remove old wave
 	//delete wave;
@@ -319,6 +325,12 @@ void CWaveEditView::OnEditPaste()
 
 	if (clipboard != nullptr) {
 		WaveFile* w2 = wave->insert_fragment(clipboard, start);
+		
+		// Undo operations
+		undoStack.push(wave);
+		deleteStack(redoStack);
+
+		// Set the new copied wave to the document wave
 		pDoc->wave = *w2;
 	}
 	// Update window 
@@ -338,3 +350,25 @@ void CWaveEditView::OnViewZoomout()
 	this->RedrawWindow();
 }
 
+void CWaveEditView::OnEditUndo()
+{
+	if (undoStack.empty())
+		return;
+	CWaveEditDoc* pDoc = GetDocument();
+	redoStack.push(&pDoc->wave);
+	pDoc->wave = *undoStack.top();
+	undoStack.pop();
+	this->RedrawWindow();
+}
+
+
+void CWaveEditView::OnEditRedo()
+{
+	if (redoStack.empty())
+		return;
+	CWaveEditDoc* pDoc = GetDocument();
+	undoStack.push(&pDoc->wave);
+	pDoc->wave = *redoStack.top();
+	redoStack.pop();
+	this->RedrawWindow();
+}
