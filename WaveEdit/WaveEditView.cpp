@@ -21,9 +21,9 @@
 
 // CWaveEditView
 
-IMPLEMENT_DYNCREATE(CWaveEditView, CView)
+IMPLEMENT_DYNCREATE(CWaveEditView, CScrollView)
 
-BEGIN_MESSAGE_MAP(CWaveEditView, CView)
+BEGIN_MESSAGE_MAP(CWaveEditView, CScrollView)
 	// Standard printing commands
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
@@ -42,12 +42,10 @@ END_MESSAGE_MAP()
 
 CWaveEditView::CWaveEditView()
 {
-	// TODO: add construction code here
 	mousePressed = false;
 	selectionStart = 0;
 	selectionEnd = 0;
 	zoom = 1;
-
 }
 
 CWaveEditView::~CWaveEditView()

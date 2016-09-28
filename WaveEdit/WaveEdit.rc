@@ -182,6 +182,7 @@ BEGIN
         MENUITEM "Speed Up",                    ID_TOOLS_SPEEDUP
         MENUITEM "Slow Down",                   ID_TOOLS_SLOWDOWN
         MENUITEM "Echo",                        ID_TOOLS_ECHO
+        MENUITEM "Reverse",                     ID_TOOLS_REVERSE
     END
 END
 

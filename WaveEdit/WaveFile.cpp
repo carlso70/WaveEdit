@@ -311,6 +311,22 @@ WaveFile* WaveFile::speedUp(float speed)
 	return w2;
 }
 
+WaveFile* WaveFile::reverse() {
+	WaveFile* w2 = new WaveFile(this->numChannels, sampleRate, bitsPerSample);
+
+	int t = lastSample;
+	while (t > 0) {
+		float value = get_sample((int)t);
+		w2->add_sample((int)value);
+		t--;
+	}
+
+	w2->updateHeader();
+
+	return w2;
+}
+
+
 WaveFile* WaveFile::get_fragment(double start, double end) {
 	WaveFile* frag = new WaveFile(this->numChannels, this->sampleRate, this->bitsPerSample);
 

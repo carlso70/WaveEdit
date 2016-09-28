@@ -27,6 +27,7 @@ BEGIN_MESSAGE_MAP(CWaveEditDoc, CDocument)
 	ON_COMMAND(ID_TOOLS_SPEEDUP, &CWaveEditDoc::OnToolsSpeedup)
 	ON_COMMAND(ID_TOOLS_SLOWDOWN, &CWaveEditDoc::OnToolsSlowdown)
 	ON_COMMAND(ID_TOOLS_ECHO, &CWaveEditDoc::OnToolsEcho)
+	ON_COMMAND(ID_TOOLS_REVERSE, &CWaveEditDoc::OnToolsReverse)
 END_MESSAGE_MAP()
 
 
@@ -178,5 +179,15 @@ void CWaveEditDoc::OnToolsEcho()
 	WaveFile* echo = new WaveFile();
 	echo = wave.echo(.7, 15);
 	wave = *echo;
+	wave.play();
+}
+
+
+void CWaveEditDoc::OnToolsReverse()
+{
+	// TODO: Add your command handler code here
+	WaveFile* reverse = new WaveFile();
+	reverse = wave.reverse();
+	wave = *reverse;
 	wave.play();
 }

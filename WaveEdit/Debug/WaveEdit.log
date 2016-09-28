@@ -1,4 +1,38 @@
-﻿  WaveEditView.cpp
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\waveeditview.cpp(108): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+﻿  WaveFile.cpp
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(73): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'int', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(183): warning C4244: '=': conversion from 'unsigned long' to 'unsigned char', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(186): warning C4244: '=': conversion from 'unsigned long' to 'unsigned char', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(187): warning C4244: '=': conversion from 'unsigned long' to 'unsigned char', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(209): warning C4018: '<': signed/unsigned mismatch
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(210): warning C4244: 'initializing': conversion from 'double' to 'short', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(249): warning C4018: '<': signed/unsigned mismatch
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(265): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(266): warning C4018: '<': signed/unsigned mismatch
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(267): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(270): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(284): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(287): warning C4018: '<': signed/unsigned mismatch
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(288): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(300): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(303): warning C4018: '<': signed/unsigned mismatch
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(304): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(319): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(333): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(347): warning C4018: '<': signed/unsigned mismatch
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(365): warning C4018: '<': signed/unsigned mismatch
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(370): warning C4018: '<': signed/unsigned mismatch
+  WaveEditView.cpp
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\waveeditview.cpp(106): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  WaveEditDoc.cpp
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\waveeditdoc.cpp(170): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\waveeditdoc.cpp(180): warning C4305: 'argument': truncation from 'double' to 'float'
+  FilterEcho.cpp
+  Filter.cpp
+  Generating Code...
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\wavefile.cpp(36): warning C4715: 'isLittleEndian': not all control paths return a value
+  Skipping... (no relevant changes detected)
+  MainFrm.cpp
+  ChildFrm.cpp
+  WaveEdit.cpp
   WaveEdit.vcxproj -> C:\Users\panth\OneDrive\documents\visual studio 2015\Projects\WaveEdit\Debug\WaveEdit.exe
   WaveEdit.vcxproj -> C:\Users\panth\OneDrive\documents\visual studio 2015\Projects\WaveEdit\Debug\WaveEdit.pdb (Full PDB)
