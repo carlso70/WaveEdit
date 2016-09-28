@@ -76,6 +76,7 @@ public:
 	// delayms is the delay of the echo added to the original.
 	WaveFile * echo(float echoAmount, float delayms);
 
+	// Create a new wavefile that is a reverse copy of the original one
 	WaveFile* reverse();
 
 	// Speed up the sound of the WaveFile 

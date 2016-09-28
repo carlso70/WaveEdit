@@ -3,19 +3,26 @@
 //
 
 #pragma once
-
+#include <stack>
 
 class CWaveEditView : public CScrollView
 {
 	bool mousePressed;
 	int selectionStart; //Selected sample start
 	int selectionEnd; //Selected sample end
-	WaveFile* clipboard;
 	double zoom; // amount of zoom
 	double drawScale; //scale at which we draw the waves
+	WaveFile* clipboard;
+
+	std::stack<WaveFile*> redoStack;
+	std::stack<WaveFile*> undoStack;
+
+	// Delete a stack of WaveFile* 
+	void deleteStack(std::stack<WaveFile*> &stack);
 
 protected: // create from serialization only
 	CWaveEditView();
+	~CWaveEditView();
 	DECLARE_DYNCREATE(CWaveEditView)
 
 // Attributes
@@ -56,6 +63,7 @@ public:
 	afx_msg void OnEditPaste();
 	afx_msg void OnViewZoomin();
 	afx_msg void OnViewZoomout();
+	afx_msg void OnEditCopy();
 };
 
 #ifndef _DEBUG  // debug version in WaveEditView.cpp

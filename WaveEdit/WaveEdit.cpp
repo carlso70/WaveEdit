@@ -48,11 +48,18 @@ CWaveEditApp::CWaveEditApp()
 
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
+
+	clipboard = NULL;
 }
 
 // The one and only CWaveEditApp object
 
 CWaveEditApp theApp;
+
+CWaveEditApp::~CWaveEditApp() {
+	if (clipboard)
+		delete clipboard;
+}
 
 
 // CWaveEditApp initialization

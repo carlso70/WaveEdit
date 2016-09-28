@@ -36,6 +36,7 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CScrollView)
 	ON_COMMAND(ID_EDIT_PASTE, &CWaveEditView::OnEditPaste)
 	ON_COMMAND(ID_VIEW_ZOOMIN, &CWaveEditView::OnViewZoomin)
 	ON_COMMAND(ID_VIEW_ZOOMOUT, &CWaveEditView::OnViewZoomout)
+	ON_COMMAND(ID_EDIT_COPY, &CWaveEditView::OnEditCopy)
 END_MESSAGE_MAP()
 
 // CWaveEditView construction/destruction
@@ -50,6 +51,15 @@ CWaveEditView::CWaveEditView()
 
 CWaveEditView::~CWaveEditView()
 {
+	deleteStack(undoStack);
+	deleteStack(redoStack);
+}
+
+void CWaveEditView::deleteStack(std::stack<WaveFile*> &stack) {
+	while (stack.empty != true) {
+		delete stack.top();
+		stack.pop();
+	}
 }
 
 BOOL CWaveEditView::PreCreateWindow(CREATESTRUCT& cs)
@@ -99,11 +109,11 @@ void CWaveEditView::OnDraw(CDC* pDC)
 	// Draw the wave
 	pDC->MoveTo(0, 0);
 	int x;
-	for (x = 0; x < zoom * wave->lastSample/drawScale; x++)
+	for (x = 0; x < zoom * wave->lastSample / drawScale; x++)
 	{
 		// assuming the whole file will be fit in the window, for every x value in the window
 		// we need to find the equivalent sample in the wave file
-		float val = wave->get_sample((int)(x*drawScale/zoom));
+		float val = wave->get_sample((int)(x*drawScale / zoom));
 		// We need to fit the sound also in the y axis. The y axis goes from 0 in the
 		//top of the window to rect.Height at the bottom. the sound goes from -32768 to 32767
 		int y = (int)((val + 32768) * (rect.Height() - 1) / (32767 + 32768));
@@ -123,6 +133,8 @@ void CWaveEditView::OnInitialUpdate()
 
 	// init scroll sizes
 	CSize sizeTotal;
+	sizeTotal.cx = 10000;
+	sizeTotal.cy = 10000;
 	SetScrollSizes(MM_TEXT, sizeTotal);
 
 	// Set scaling
@@ -180,21 +192,21 @@ CWaveEditDoc* CWaveEditView::GetDocument() const // non-debug version is inline
 void CWaveEditView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
+	CScrollView::OnLButtonDown(nFlags, point);
 	mousePressed = true;
 	selectionStart = point.x;
 	selectionEnd = point.x;
-	CScrollView::OnLButtonDown(nFlags, point);
 }
 
 
 void CWaveEditView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
+	CScrollView::OnLButtonUp(nFlags, point);
 	mousePressed = false;
 	this->selectionEnd = point.x;
 	this->RedrawWindow();
 
-	CScrollView::OnLButtonUp(nFlags, point);
 }
 
 
@@ -215,11 +227,8 @@ void CWaveEditView::OnEditCut()
 	// TODO: Add your command handler code here
 	CWaveEditDoc* pDoc = GetDocument();
 
-	OutputDebugStringW(L"My output string.");
-
 	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
+	if (!pDoc)	return;
 	WaveFile* wave = &pDoc->wave;
 
 	if (wave->hdr == nullptr) return;
@@ -257,9 +266,41 @@ void CWaveEditView::OnEditCut()
 }
 
 
+void CWaveEditView::OnEditCopy()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+
+	ASSERT_VALID(pDoc);
+	if (!pDoc) return;
+
+	WaveFile* wave = &pDoc->wave;
+
+	//Get Dimensions of the current window
+	CRect rect;
+	GetClientRect(rect);
+
+	//Scale the start section
+	double start = (1000 * wave->lastSample / wave->sampleRate) * this->selectionStart / rect.Width();
+
+	// Scale the end section
+	double end = (1000 * wave->lastSample / wave->sampleRate) * this->selectionEnd / rect.Width();
+
+	if (start > end) {
+		double i = end;
+		end = start;
+		start = i;
+	}
+
+	// Copy the fragment onto the clipboard
+	clipboard = wave->get_fragment(start, end);
+
+	this->RedrawWindow();
+}
+
+
+
 void CWaveEditView::OnEditPaste()
 {
-	// TODO: Add your command handler code here
 	CWaveEditDoc* pDoc = GetDocument();
 
 	ASSERT_VALID(pDoc);
@@ -296,3 +337,4 @@ void CWaveEditView::OnViewZoomout()
 	zoom = zoom / 2;
 	this->RedrawWindow();
 }
+
