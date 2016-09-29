@@ -8,16 +8,7 @@ FilterSlowdown::FilterSlowdown()
 
 WaveFile * FilterSlowdown::transform(float speed, WaveFile * oldWave)
 {
-	WaveFile *w2 = new WaveFile(oldWave->getNumChannels(), oldWave->getSampleRate() / speed,
-		oldWave->getbitsPerSample());
-
-	int t = 0;
-	while (t < oldWave->getLastSample()) {
-		float value = oldWave->get_sample((int)t);
-		w2->add_sample((int)value);
-		t++;
-	}
-
+	WaveFile *w2 = oldWave->multiply_freq(speed, 0);
 	w2->updateHeader();
 
 	return w2;

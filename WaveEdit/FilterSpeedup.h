@@ -5,7 +5,7 @@ class FilterSpeedup :
 {
 public:
 	FilterSpeedup();
-	static WaveFile* transform(float speed, WaveFile* oldWave);
+	static WaveFile* transform(double speed, WaveFile* oldWave);
 	~FilterSpeedup();
 };
 

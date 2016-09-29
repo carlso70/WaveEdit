@@ -47,6 +47,9 @@ public:
 	// Create an empty wave file with these parameters.
 	WaveFile(int numChannels, int sampleRate, int bitsPerSample);
 
+	// Make a duplicate of a wave file
+	static WaveFile* Copy(WaveFile wave);
+
 	// Destructor
 	~WaveFile(void);
 
@@ -76,6 +79,9 @@ public:
 	// Create a new wave file that is k times the frequency rate of the original up to durationms.
 	// If durationms==0 then use the whole wave file.
 	WaveFile * multiply_freq(double k, int durationms);
+
+	// Similar to the other multiply_freq, but instead does it over a section selected
+	WaveFile * multiply_freq(double k, int start, int end);
 
 	// Append a wave file src to the end of this wave file. 
 	void append_wave(WaveFile * src);

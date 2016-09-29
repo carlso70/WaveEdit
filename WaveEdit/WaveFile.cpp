@@ -55,6 +55,27 @@ WaveFile::WaveFile(int numChannels, int sampleRate, int bitsPerSample) {
 		malloc(sizeof(WaveHeader) - 1 + maxSamples * bytesPerSample);
 }
 
+WaveFile* WaveFile::Copy(WaveFile wave) {
+	WaveFile * w2 = new WaveFile(wave.numChannels, wave.sampleRate, wave.bitsPerSample);
+	w2->numChannels = wave.numChannels;
+	w2->sampleRate = wave.sampleRate;
+	w2->bitsPerSample = wave.bitsPerSample;
+	w2->bytesPerSample = wave.bytesPerSample;
+	w2->lastSample = wave.lastSample;
+	w2->maxSamples = wave.maxSamples;
+
+	int t = 0;
+	while (t < wave.lastSample) {
+		float value = wave.get_sample((int)t);
+		w2->add_sample((int)value);
+		t++;
+	}
+
+	w2->updateHeader();
+
+	return w2;
+}
+
 // Destructor
 WaveFile::~WaveFile(void)
 {
@@ -240,6 +261,39 @@ WaveFile* WaveFile::multiply_freq(double k, int durationms)
 	// Write wav header
 	w2->updateHeader();
 
+	return w2;
+}
+
+WaveFile* WaveFile::multiply_freq(double k, int start, int end) {
+	WaveFile* w2 = new WaveFile(numChannels, sampleRate, bitsPerSample);
+
+	if (end > lastSample) end = lastSample;
+	if (start < 0) start = 0;
+	if (start >= end) {
+		start = 0;
+		end = lastSample;
+	}
+
+	double i = 0;
+	if (k != 0) {
+		for (i = 0; i < start; i++) {
+			int value = get_sample((int)i);
+			w2->add_sample(value);
+		}
+		// Speed up section
+		while (i < end) {
+			int value = get_sample((int)i);
+			w2->add_sample(value);
+			i += k;
+		}
+		while (i < lastSample) {
+			int value = get_sample((int)i);
+			w2->add_sample(value);
+			i++;
+		}
+	}
+
+	w2->updateHeader();
 	return w2;
 }
 

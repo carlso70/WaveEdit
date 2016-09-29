@@ -29,10 +29,6 @@ IMPLEMENT_DYNCREATE(CWaveEditDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CWaveEditDoc, CDocument)
 	ON_COMMAND(ID_TOOLS_PLAY, &CWaveEditDoc::OnToolsPlay)
-	ON_COMMAND(ID_TOOLS_SPEEDUP, &CWaveEditDoc::OnToolsSpeedup)
-	ON_COMMAND(ID_TOOLS_SLOWDOWN, &CWaveEditDoc::OnToolsSlowdown)
-	ON_COMMAND(ID_TOOLS_ECHO, &CWaveEditDoc::OnToolsEcho)
-	ON_COMMAND(ID_TOOLS_REVERSE, &CWaveEditDoc::OnToolsReverse)
 END_MESSAGE_MAP()
 
 
@@ -155,48 +151,5 @@ void CWaveEditDoc::Dump(CDumpContext& dc) const
 
 void CWaveEditDoc::OnToolsPlay()
 {
-	// TODO: Add your command handler code here
-	wave.play();
-}
-
-
-void CWaveEditDoc::OnToolsSpeedup()
-{
-	WaveFile* speed = new WaveFile();
-	//speed = wave.speedUp(2);
-	speed = FilterSpeedup::transform(2, &wave);
-	wave = *speed;
-	wave.play();
-}
-
-
-void CWaveEditDoc::OnToolsSlowdown()
-{
-	WaveFile* slow = new WaveFile();
-	//slow = wave.slowDown(1.8);
-	slow = FilterSlowdown::transform(1.7, &wave);
-	wave = *slow;
-	wave.play();
-}
-
-
-void CWaveEditDoc::OnToolsEcho()
-{
-	// Right now have a copy of both the original and the new echo version
-	WaveFile* echo = new WaveFile();
-	//echo = wave.echo(.7, 15);
-	echo = FilterEcho::transform(.7, 15, &wave);
-	wave = *echo;
-	wave.play();
-}
-
-
-void CWaveEditDoc::OnToolsReverse()
-{
-	// TODO: Add your command handler code here
-	WaveFile* reverse = new WaveFile();
-	//reverse = wave.reverse();
-	reverse = FilterReverse::transform(0, &wave);
-	wave = *reverse;
 	wave.play();
 }

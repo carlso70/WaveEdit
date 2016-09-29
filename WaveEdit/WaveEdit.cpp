@@ -171,6 +171,7 @@ protected:
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -193,6 +194,4 @@ void CWaveEditApp::OnAppAbout()
 }
 
 // CWaveEditApp message handlers
-
-
 

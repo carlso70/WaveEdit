@@ -5,6 +5,7 @@
 #include <stack>
 #include "WaveFile.h"
 #include "WaveEditDoc.h"
+#include "WaveEditDoc.h"
 
 class CWaveEditView : public CScrollView
 {
@@ -20,7 +21,7 @@ class CWaveEditView : public CScrollView
 	std::stack<WaveFile> redoStack;
 	std::stack<WaveFile> undoStack;
 
-	// Delete a stack of WaveFile* 
+	// Delete a stack of WaveFile
 	void deleteStack(std::stack<WaveFile> &stack);
 
 protected: // create from serialization only
@@ -69,6 +70,10 @@ public:
 	afx_msg void OnEditCopy();
 	afx_msg void OnEditUndo();
 	afx_msg void OnEditRedo();
+	afx_msg void OnFiltersSpeedup();
+	afx_msg void OnFiltersSlowdown();
+	afx_msg void OnFiltersEcho();
+	afx_msg void OnFiltersReverse();
 };
 
 #ifndef _DEBUG  // debug version in WaveEditView.cpp

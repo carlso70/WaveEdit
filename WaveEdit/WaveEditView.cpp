@@ -13,6 +13,10 @@
 #include "WaveEditView.h"
 #include <sstream>
 #include <Windows.h>
+#include "FilterReverse.h"
+#include "FilterEcho.h"
+#include "FilterSlowdown.h"
+#include "FilterSpeedup.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -39,6 +43,10 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CScrollView)
 	ON_COMMAND(ID_EDIT_COPY, &CWaveEditView::OnEditCopy)
 	ON_COMMAND(ID_EDIT_UNDO, &CWaveEditView::OnEditUndo)
 	ON_COMMAND(ID_EDIT_REDO, &CWaveEditView::OnEditRedo)
+	ON_COMMAND(ID_FILTERS_SPEEDUP, &CWaveEditView::OnFiltersSpeedup)
+	ON_COMMAND(ID_FILTERS_SLOWDOWN, &CWaveEditView::OnFiltersSlowdown)
+	ON_COMMAND(ID_FILTERS_ECHO, &CWaveEditView::OnFiltersEcho)
+	ON_COMMAND(ID_FILTERS_REVERSE, &CWaveEditView::OnFiltersReverse)
 END_MESSAGE_MAP()
 
 // CWaveEditView construction/destruction
@@ -269,7 +277,7 @@ void CWaveEditView::OnEditCut()
 
 	//copy the clipboard
 	WaveFile* w2 = wave->remove_fragment(start, end);
-		
+
 	//Remove old wave
 	//delete wave;
 
@@ -299,7 +307,7 @@ void CWaveEditView::OnEditCopy()
 	//Get Dimensions of the current window
 	CRect rect;
 	GetClientRect(rect);
-	
+
 	// We want the totalSize of the wave in the window
 	CSize totalSize = GetTotalSize();
 
@@ -334,7 +342,7 @@ void CWaveEditView::OnEditPaste()
 	WaveFile* wave = &pDoc->wave;
 
 	if (wave->hdr == nullptr) return;
-	
+
 	// Undo operations
 	undoStack.push(*wave);
 	deleteStack(redoStack);
@@ -350,7 +358,7 @@ void CWaveEditView::OnEditPaste()
 
 	if (clipboard != nullptr) {
 		WaveFile* w2 = wave->insert_fragment(clipboard, start);
-		
+
 		// Set the new copied wave to the document wave
 		pDoc->wave = *w2;
 	}
@@ -394,4 +402,66 @@ void CWaveEditView::OnEditRedo()
 	pDoc->wave.updateHeader();
 	redoStack.pop();
 	this->RedrawWindow();
+}
+
+
+
+void CWaveEditView::OnFiltersSpeedup()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+	WaveFile* speed = new WaveFile();
+
+	undoStack.push(pDoc->wave);
+	deleteStack(redoStack);
+
+	speed = FilterSpeedup::transform(2, &pDoc->wave);
+
+	pDoc->wave = *speed;
+	pDoc->wave.play();
+}
+
+
+void CWaveEditView::OnFiltersSlowdown()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+	WaveFile* slow = new WaveFile();
+
+	undoStack.push(pDoc->wave);
+	deleteStack(redoStack);
+
+	slow = FilterSlowdown::transform(.5, &pDoc->wave);
+
+	pDoc->wave = *slow;
+	pDoc->wave.play();
+
+}
+
+
+void CWaveEditView::OnFiltersEcho()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+	WaveFile * echo = new WaveFile();
+
+	undoStack.push(pDoc->wave);
+	deleteStack(redoStack);
+
+	echo = FilterEcho::transform(.7, 15, &pDoc->wave);
+
+	pDoc->wave = *echo;
+	pDoc->wave.play();
+}
+
+
+void CWaveEditView::OnFiltersReverse()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+	WaveFile* reverse = new WaveFile();
+
+	undoStack.push(pDoc->wave);
+	deleteStack(redoStack);
+
+	reverse = FilterReverse::transform(0, &pDoc->wave);
+
+	pDoc->wave = *reverse;
+	pDoc->wave.play();
 }

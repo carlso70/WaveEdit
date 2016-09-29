@@ -1,5 +1,6 @@
 #pragma once
 #include "Filter.h"
+
 class FilterSlowdown :
 	public Filter
 {
@@ -10,4 +11,3 @@ public:
 
 	~FilterSlowdown();
 };
-
