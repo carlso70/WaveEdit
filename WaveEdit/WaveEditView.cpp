@@ -58,9 +58,8 @@ CWaveEditView::~CWaveEditView()
 	delete clipboard;
 }
 
-void CWaveEditView::deleteStack(std::stack<WaveFile*> &stack) {
+void CWaveEditView::deleteStack(std::stack<WaveFile> &stack) {
 	while (stack.empty() != true) {
-		delete stack.top();
 		stack.pop();
 	}
 }
@@ -235,6 +234,10 @@ void CWaveEditView::OnEditCut()
 
 	if (wave->hdr == nullptr) return;
 
+	// Undo operations, add the current document wave to the undo stack
+	undoStack.push(*wave);
+	deleteStack(redoStack);
+
 	//Get Dimensions of the current window
 	CRect rect;
 	GetClientRect(rect);
@@ -257,10 +260,6 @@ void CWaveEditView::OnEditCut()
 	//copy the clipboard
 	WaveFile* w2 = wave->remove_fragment(start, end);
 		
-	// Undo operations, add the current document wave to the undo stack
-	undoStack.push(wave);
-	deleteStack(redoStack);
-
 	//Remove old wave
 	//delete wave;
 
@@ -280,6 +279,12 @@ void CWaveEditView::OnEditCopy()
 	if (!pDoc) return;
 
 	WaveFile* wave = &pDoc->wave;
+
+
+	// Undo operations
+	undoStack.push(*wave);
+	deleteStack(redoStack);
+
 
 	//Get Dimensions of the current window
 	CRect rect;
@@ -316,6 +321,11 @@ void CWaveEditView::OnEditPaste()
 	WaveFile* wave = &pDoc->wave;
 
 	if (wave->hdr == nullptr) return;
+	
+	// Undo operations
+	undoStack.push(*wave);
+	deleteStack(redoStack);
+
 
 	CRect rect;
 	GetClientRect(rect);
@@ -326,10 +336,6 @@ void CWaveEditView::OnEditPaste()
 	if (clipboard != nullptr) {
 		WaveFile* w2 = wave->insert_fragment(clipboard, start);
 		
-		// Undo operations
-		undoStack.push(wave);
-		deleteStack(redoStack);
-
 		// Set the new copied wave to the document wave
 		pDoc->wave = *w2;
 	}
@@ -355,8 +361,9 @@ void CWaveEditView::OnEditUndo()
 	if (undoStack.empty())
 		return;
 	CWaveEditDoc* pDoc = GetDocument();
-	redoStack.push(&pDoc->wave);
-	pDoc->wave = *undoStack.top();
+	redoStack.push(pDoc->wave);
+	pDoc->wave = undoStack.top();
+	pDoc->wave.updateHeader();
 	undoStack.pop();
 	this->RedrawWindow();
 }
@@ -367,8 +374,9 @@ void CWaveEditView::OnEditRedo()
 	if (redoStack.empty())
 		return;
 	CWaveEditDoc* pDoc = GetDocument();
-	undoStack.push(&pDoc->wave);
-	pDoc->wave = *redoStack.top();
+	undoStack.push(pDoc->wave);
+	pDoc->wave = redoStack.top();
+	pDoc->wave.updateHeader();
 	redoStack.pop();
 	this->RedrawWindow();
 }

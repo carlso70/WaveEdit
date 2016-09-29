@@ -15,11 +15,11 @@ class CWaveEditView : public CScrollView
 	double drawScale; //scale at which we draw the waves
 	WaveFile* clipboard;
 
-	std::stack<WaveFile*> redoStack;
-	std::stack<WaveFile*> undoStack;
+	std::stack<WaveFile> redoStack;
+	std::stack<WaveFile> undoStack;
 
 	// Delete a stack of WaveFile* 
-	void deleteStack(std::stack<WaveFile*> &stack);
+	void deleteStack(std::stack<WaveFile> &stack);
 
 protected: // create from serialization only
 	
