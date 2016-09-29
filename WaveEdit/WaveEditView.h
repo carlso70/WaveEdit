@@ -4,10 +4,12 @@
 #pragma once
 #include <stack>
 #include "WaveFile.h"
+#include "WaveEditDoc.h"
 
 class CWaveEditView : public CScrollView
 {
 	friend class WaveFile;
+	friend class CWaveEditDoc;
 	bool mousePressed;
 	int selectionStart; //Selected sample start
 	int selectionEnd; //Selected sample end

@@ -8,21 +8,37 @@ c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\
 c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveeditdoc.obj
 c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveeditview.obj
 c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\wavefile.obj
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.res
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\wavefile.obj.enc
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\filter.obj
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\filterecho.obj
+c:\waveeditor\waveedit\waveedit\debug\waveedit.pch
+c:\waveeditor\waveedit\waveedit\debug\vc140.pdb
+c:\waveeditor\waveedit\waveedit\debug\vc140.idb
+c:\waveeditor\waveedit\waveedit\debug\stdafx.obj
+c:\waveeditor\waveedit\waveedit\debug\childfrm.obj
+c:\waveeditor\waveedit\waveedit\debug\mainfrm.obj
+c:\waveeditor\waveedit\waveedit\debug\waveedit.obj
+c:\waveeditor\waveedit\waveedit\debug\waveeditview.obj
+c:\waveeditor\waveedit\waveedit\debug\wavefile.obj
+c:\waveeditor\waveedit\waveedit\debug\waveeditdoc.obj
+c:\waveeditor\waveedit\waveedit\debug\filter.obj
+c:\waveeditor\waveedit\waveedit\debug\filterecho.obj
+c:\waveeditor\waveedit\waveedit\debug\filterreverse.obj
+c:\waveeditor\waveedit\waveedit\debug\filterspeedup.obj
+c:\waveeditor\waveedit\waveedit\debug\filterslowdown.obj
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\debug\waveedit.ilk
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\debug\waveedit.exe
 c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\debug\waveedit.pdb
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\cl.command.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\cl.read.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\cl.write.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\link-cvtres.read.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\link-cvtres.write.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\link-mt.read.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\link-mt.write.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\link-rc.read.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\link-rc.write.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\link.command.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\link.read.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\link.write.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\rc.command.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\rc.read.1.tlog
-c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.tlog\rc.write.1.tlog
+c:\waveeditor\waveedit\debug\waveedit.ilk
+c:\waveeditor\waveedit\debug\waveedit.exe
+c:\waveeditor\waveedit\debug\waveedit.pdb
+c:\users\panth\onedrive\documents\visual studio 2015\projects\waveedit\waveedit\debug\waveedit.res
+c:\waveeditor\waveedit\waveedit\debug\waveedit.res
+c:\waveeditor\waveedit\waveedit\debug\waveedit.tlog\cl.command.1.tlog
+c:\waveeditor\waveedit\waveedit\debug\waveedit.tlog\cl.read.1.tlog
+c:\waveeditor\waveedit\waveedit\debug\waveedit.tlog\cl.write.1.tlog
+c:\waveeditor\waveedit\waveedit\debug\waveedit.tlog\link.command.1.tlog
+c:\waveeditor\waveedit\waveedit\debug\waveedit.tlog\link.read.1.tlog
+c:\waveeditor\waveedit\waveedit\debug\waveedit.tlog\link.write.1.tlog
+c:\waveeditor\waveedit\waveedit\debug\waveedit.tlog\rc.command.1.tlog
+c:\waveeditor\waveedit\waveedit\debug\waveedit.tlog\rc.read.1.tlog
+c:\waveeditor\waveedit\waveedit\debug\waveedit.tlog\rc.write.1.tlog

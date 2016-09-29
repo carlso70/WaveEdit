@@ -11,8 +11,13 @@
 #endif
 
 #include "WaveEditDoc.h"
-
 #include <propkey.h>
+
+#include "FilterEcho.h"
+#include "FilterReverse.h"
+#include "FilterSlowdown.h"
+#include "FilterSpeedup.h"
+#include "WaveEditView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -158,7 +163,8 @@ void CWaveEditDoc::OnToolsPlay()
 void CWaveEditDoc::OnToolsSpeedup()
 {
 	WaveFile* speed = new WaveFile();
-	speed = wave.speedUp(2);
+	//speed = wave.speedUp(2);
+	speed = FilterSpeedup::transform(2, &wave);
 	wave = *speed;
 	wave.play();
 }
@@ -167,7 +173,8 @@ void CWaveEditDoc::OnToolsSpeedup()
 void CWaveEditDoc::OnToolsSlowdown()
 {
 	WaveFile* slow = new WaveFile();
-	slow = wave.slowDown(1.8);
+	//slow = wave.slowDown(1.8);
+	slow = FilterSlowdown::transform(1.7, &wave);
 	wave = *slow;
 	wave.play();
 }
@@ -177,7 +184,8 @@ void CWaveEditDoc::OnToolsEcho()
 {
 	// Right now have a copy of both the original and the new echo version
 	WaveFile* echo = new WaveFile();
-	echo = wave.echo(.7, 15);
+	//echo = wave.echo(.7, 15);
+	echo = FilterEcho::transform(.7, 15, &wave);
 	wave = *echo;
 	wave.play();
 }
@@ -187,7 +195,8 @@ void CWaveEditDoc::OnToolsReverse()
 {
 	// TODO: Add your command handler code here
 	WaveFile* reverse = new WaveFile();
-	reverse = wave.reverse();
+	//reverse = wave.reverse();
+	reverse = FilterReverse::transform(0, &wave);
 	wave = *reverse;
 	wave.play();
 }
