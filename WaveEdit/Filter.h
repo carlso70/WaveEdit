@@ -1,11 +1,12 @@
 #pragma once
+#include "WaveFile.h"
 class Filter
 {
 	friend class WaveFile;
 public:
 	Filter();
 	
-	virtual void transform() = 0;
+	virtual WaveFile* transform() = 0;
 
 	~Filter();
 };

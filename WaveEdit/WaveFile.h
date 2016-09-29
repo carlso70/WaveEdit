@@ -31,6 +31,15 @@ class WaveFile
 
 	// Points to the wave file in memory
 	WaveHeader * hdr;
+
+public:
+
+	// Getter functions
+	unsigned long getSampleRate() { return sampleRate; }
+	unsigned long getNumChannels() { return numChannels; }
+	unsigned long getLastSample() { return lastSample; }
+	unsigned long getbitsPerSample() { return bitsPerSample; }
+
 public:
 	// Create an empty wave file.
 	WaveFile(void);

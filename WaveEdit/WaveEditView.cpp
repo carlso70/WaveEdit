@@ -194,21 +194,28 @@ CWaveEditDoc* CWaveEditView::GetDocument() const // non-debug version is inline
 void CWaveEditView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
-	CScrollView::OnLButtonDown(nFlags, point);
 	mousePressed = true;
-	selectionStart = point.x;
-	selectionEnd = point.x;
+	CPoint scrollPos = GetDeviceScrollPosition();
+	selectionStart = point.x + scrollPos.x;
+	selectionEnd = point.x + scrollPos.x;
+
+	CScrollView::OnLButtonDown(nFlags, point);
 }
 
 
 void CWaveEditView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
-	CScrollView::OnLButtonUp(nFlags, point);
 	mousePressed = false;
-	this->selectionEnd = point.x;
+	CPoint scrollPos = GetDeviceScrollPosition();
+	this->selectionEnd = point.x + scrollPos.x;
+	if (selectionEnd < selectionStart) {
+		int i = selectionStart;
+		selectionStart = selectionEnd;
+		selectionEnd = i;
+	}
 	this->RedrawWindow();
-
+	CScrollView::OnLButtonUp(nFlags, point);
 }
 
 
@@ -242,11 +249,14 @@ void CWaveEditView::OnEditCut()
 	CRect rect;
 	GetClientRect(rect);
 
+	// We want the totalSize of the wave in the window
+	CSize totalSize = GetTotalSize();
+
 	//Scale the start section
-	double start = (1000 * wave->lastSample / wave->sampleRate) * this->selectionStart / rect.Width();
+	double start = (1000 * wave->lastSample / wave->sampleRate) * this->selectionStart / (double)totalSize.cx;
 
 	// Scale the end section
-	double end = (1000 * wave->lastSample / wave->sampleRate) * this->selectionEnd / rect.Width();
+	double end = (1000 * wave->lastSample / wave->sampleRate) * this->selectionEnd / (double)totalSize.cx;
 
 	if (start > end) {
 		double i = end;
@@ -289,12 +299,15 @@ void CWaveEditView::OnEditCopy()
 	//Get Dimensions of the current window
 	CRect rect;
 	GetClientRect(rect);
+	
+	// We want the totalSize of the wave in the window
+	CSize totalSize = GetTotalSize();
 
 	//Scale the start section
-	double start = (1000 * wave->lastSample / wave->sampleRate) * this->selectionStart / rect.Width();
+	double start = (1000 * wave->lastSample / wave->sampleRate) * this->selectionStart / (double)totalSize.cx;
 
 	// Scale the end section
-	double end = (1000 * wave->lastSample / wave->sampleRate) * this->selectionEnd / rect.Width();
+	double end = (1000 * wave->lastSample / wave->sampleRate) * this->selectionEnd / (double)totalSize.cx;
 
 	if (start > end) {
 		double i = end;
@@ -330,8 +343,10 @@ void CWaveEditView::OnEditPaste()
 	CRect rect;
 	GetClientRect(rect);
 
+	CSize totalSize = GetTotalSize();
+
 	//Scale the start section
-	double start = (1000 * wave->lastSample / wave->sampleRate) * this->selectionStart / rect.Width();
+	double start = (1000 * wave->lastSample / wave->sampleRate) * this->selectionStart / (double)totalSize.cx;
 
 	if (clipboard != nullptr) {
 		WaveFile* w2 = wave->insert_fragment(clipboard, start);

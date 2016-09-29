@@ -1,12 +1,13 @@
 #pragma once
 #include "Filter.h"
+
 class FilterEcho :
 	public Filter
 {
 public:
 	FilterEcho();
 
-	void transform();
+	static WaveFile* transform(float echoAmount, float delayms, WaveFile* oldWave);
 
 	~FilterEcho();
 };

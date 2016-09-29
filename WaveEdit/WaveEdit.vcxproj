@@ -194,6 +194,9 @@
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="Filter.h" />
     <ClInclude Include="FilterEcho.h" />
+    <ClInclude Include="FilterReverse.h" />
+    <ClInclude Include="FilterSlowdown.h" />
+    <ClInclude Include="FilterSpeedup.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -207,6 +210,9 @@
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="Filter.cpp" />
     <ClCompile Include="FilterEcho.cpp" />
+    <ClCompile Include="FilterReverse.cpp" />
+    <ClCompile Include="FilterSlowdown.cpp" />
+    <ClCompile Include="FilterSpeedup.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
