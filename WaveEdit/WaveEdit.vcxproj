@@ -197,6 +197,7 @@
     <ClInclude Include="FilterReverse.h" />
     <ClInclude Include="FilterSlowdown.h" />
     <ClInclude Include="FilterSpeedup.h" />
+    <ClInclude Include="FilterToneChange.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="FilterReverse.cpp" />
     <ClCompile Include="FilterSlowdown.cpp" />
     <ClCompile Include="FilterSpeedup.cpp" />
+    <ClCompile Include="FilterToneChange.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

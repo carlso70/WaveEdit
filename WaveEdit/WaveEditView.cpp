@@ -16,6 +16,7 @@
 #include "FilterReverse.h"
 #include "FilterEcho.h"
 #include "FilterSlowdown.h"
+#include "FilterToneChange.h"
 #include "FilterSpeedup.h"
 
 #ifdef _DEBUG
@@ -47,6 +48,14 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CScrollView)
 	ON_COMMAND(ID_FILTERS_SLOWDOWN, &CWaveEditView::OnFiltersSlowdown)
 	ON_COMMAND(ID_FILTERS_ECHO, &CWaveEditView::OnFiltersEcho)
 	ON_COMMAND(ID_FILTERS_REVERSE, &CWaveEditView::OnFiltersReverse)
+	ON_COMMAND(ID_SPEEDUP_2X, &CWaveEditView::OnSpeedup2x)
+	ON_COMMAND(ID_SPEEDUP_3X, &CWaveEditView::OnSpeedup3x)
+	ON_COMMAND(ID_SPEEDUP_4X, &CWaveEditView::OnSpeedup4x)
+	ON_COMMAND(ID_SPEEDUP_5X, &CWaveEditView::OnSpeedup5x)
+	ON_COMMAND(ID_SLOWDOWN_1, &CWaveEditView::OnSlowdownHalfx)
+	ON_COMMAND(ID_SLOWDOWN_2, &CWaveEditView::OnSlowdownThirdx)
+	ON_COMMAND(ID_SLOWDOWN_3, &CWaveEditView::OnSlowdownFourthx)
+	ON_COMMAND(ID_SLOWDOWN_4, &CWaveEditView::OnSlowdownFifthx)
 END_MESSAGE_MAP()
 
 // CWaveEditView construction/destruction
@@ -61,9 +70,6 @@ CWaveEditView::CWaveEditView()
 
 CWaveEditView::~CWaveEditView()
 {
-	deleteStack(undoStack);
-	deleteStack(redoStack);
-	delete clipboard;
 }
 
 void CWaveEditView::deleteStack(std::stack<WaveFile> &stack) {
@@ -463,5 +469,125 @@ void CWaveEditView::OnFiltersReverse()
 	reverse = FilterReverse::transform(0, &pDoc->wave);
 
 	pDoc->wave = *reverse;
+	pDoc->wave.play();
+}
+
+
+void CWaveEditView::OnSpeedup2x()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+	WaveFile* speed = new WaveFile();
+
+	undoStack.push(pDoc->wave);
+	deleteStack(redoStack);
+
+	speed = FilterSpeedup::transform(2, &pDoc->wave);
+
+	pDoc->wave = *speed;
+	pDoc->wave.play();
+}
+
+
+void CWaveEditView::OnSpeedup3x()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+	WaveFile* speed = new WaveFile();
+
+	undoStack.push(pDoc->wave);
+	deleteStack(redoStack);
+
+	speed = FilterSpeedup::transform(3, &pDoc->wave);
+
+	pDoc->wave = *speed;
+	pDoc->wave.play();
+}
+
+
+void CWaveEditView::OnSpeedup4x()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+	WaveFile* speed = new WaveFile();
+
+	undoStack.push(pDoc->wave);
+	deleteStack(redoStack);
+
+	speed = FilterSpeedup::transform(4, &pDoc->wave);
+
+	pDoc->wave = *speed;
+	pDoc->wave.play();
+}
+
+
+void CWaveEditView::OnSpeedup5x()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+	WaveFile* speed = new WaveFile();
+
+	undoStack.push(pDoc->wave);
+	deleteStack(redoStack);
+
+	speed = FilterSpeedup::transform(5, &pDoc->wave);
+
+	pDoc->wave = *speed;
+	pDoc->wave.play();
+}
+
+
+void CWaveEditView::OnSlowdownHalfx()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+	WaveFile* slow = new WaveFile();
+
+	undoStack.push(pDoc->wave);
+	deleteStack(redoStack);
+
+	slow = FilterSlowdown::transform(.5, &pDoc->wave);
+
+	pDoc->wave = *slow;
+	pDoc->wave.play();
+}
+
+
+void CWaveEditView::OnSlowdownThirdx()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+	WaveFile* slow = new WaveFile();
+
+	undoStack.push(pDoc->wave);
+	deleteStack(redoStack);
+
+	slow = FilterSlowdown::transform(.33, &pDoc->wave);
+
+	pDoc->wave = *slow;
+	pDoc->wave.play();
+}
+
+
+void CWaveEditView::OnSlowdownFourthx()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+	WaveFile* slow = new WaveFile();
+
+	undoStack.push(pDoc->wave);
+	deleteStack(redoStack);
+
+	slow = FilterSlowdown::transform(.25, &pDoc->wave);
+
+	pDoc->wave = *slow;
+	pDoc->wave.play();
+}
+
+
+void CWaveEditView::OnSlowdownFifthx()
+{
+	CWaveEditDoc* pDoc = GetDocument();
+	WaveFile* slow = new WaveFile();
+
+	undoStack.push(pDoc->wave);
+	deleteStack(redoStack);
+
+	slow = FilterSlowdown::transform(.1, &pDoc->wave);
+
+	pDoc->wave = *slow;
 	pDoc->wave.play();
 }

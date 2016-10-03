@@ -183,8 +183,20 @@ BEGIN
     END
     POPUP "Filters"
     BEGIN
-        MENUITEM "Speed up",                    ID_FILTERS_SPEEDUP
-        MENUITEM "Slow down",                   ID_FILTERS_SLOWDOWN
+        POPUP "Speed up"
+        BEGIN
+            MENUITEM "2x",                          ID_SPEEDUP_2X
+            MENUITEM "3x",                          ID_SPEEDUP_3X
+            MENUITEM "4x",                          ID_SPEEDUP_4X
+            MENUITEM "5x",                          ID_SPEEDUP_5X
+        END
+        POPUP "Slow down"
+        BEGIN
+            MENUITEM "1/2x",                        ID_SLOWDOWN_1
+            MENUITEM "1/3x",                        ID_SLOWDOWN_2
+            MENUITEM "1/4x",                        ID_SLOWDOWN_3
+            MENUITEM "1/5x",                        ID_SLOWDOWN_4
+        END
         MENUITEM "Echo",                        ID_FILTERS_ECHO
         MENUITEM "Reverse",                     ID_FILTERS_REVERSE
     END

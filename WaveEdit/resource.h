@@ -21,13 +21,21 @@
 #define ID_FILTERS_SLOWDOWN             32783
 #define ID_FILTERS_ECHO                 32784
 #define ID_FILTERS_REVERSE              32785
+#define ID_SPEEDUP_2X                   32786
+#define ID_SPEEDUP_3X                   32787
+#define ID_SPEEDUP_4X                   32788
+#define ID_SPEEDUP_5X                   32789
+#define ID_SLOWDOWN_1                   32790
+#define ID_SLOWDOWN_2                   32791
+#define ID_SLOWDOWN_3                   32792
+#define ID_SLOWDOWN_4                   32793
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        312
-#define _APS_NEXT_COMMAND_VALUE         32786
+#define _APS_NEXT_COMMAND_VALUE         32794
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

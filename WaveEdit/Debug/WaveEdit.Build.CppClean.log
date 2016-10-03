@@ -10,9 +10,10 @@ c:\waveeditor\waveedit\waveedit\debug\filterslowdown.obj
 c:\waveeditor\waveedit\waveedit\debug\filterspeedup.obj
 c:\waveeditor\waveedit\waveedit\debug\mainfrm.obj
 c:\waveeditor\waveedit\waveedit\debug\waveedit.obj
+c:\waveeditor\waveedit\waveedit\debug\waveeditdoc.obj
 c:\waveeditor\waveedit\waveedit\debug\waveeditview.obj
 c:\waveeditor\waveedit\waveedit\debug\wavefile.obj
-c:\waveeditor\waveedit\waveedit\debug\waveeditdoc.obj
+c:\waveeditor\waveedit\waveedit\debug\filtertonechange.obj
 c:\waveeditor\waveedit\debug\waveedit.ilk
 c:\waveeditor\waveedit\debug\waveedit.exe
 c:\waveeditor\waveedit\debug\waveedit.pdb

@@ -13,10 +13,6 @@
 #include "WaveEditDoc.h"
 #include <propkey.h>
 
-#include "FilterEcho.h"
-#include "FilterReverse.h"
-#include "FilterSlowdown.h"
-#include "FilterSpeedup.h"
 #include "WaveEditView.h"
 
 #ifdef _DEBUG
@@ -143,11 +139,7 @@ void CWaveEditDoc::Dump(CDumpContext& dc) const
 }
 #endif //_DEBUG
 
-
 // CWaveEditDoc commands
-
-
-
 
 void CWaveEditDoc::OnToolsPlay()
 {

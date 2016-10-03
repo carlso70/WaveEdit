@@ -74,6 +74,14 @@ public:
 	afx_msg void OnFiltersSlowdown();
 	afx_msg void OnFiltersEcho();
 	afx_msg void OnFiltersReverse();
+	afx_msg void OnSpeedup2x();
+	afx_msg void OnSpeedup3x();
+	afx_msg void OnSpeedup4x();
+	afx_msg void OnSpeedup5x();
+	afx_msg void OnSlowdownHalfx();
+	afx_msg void OnSlowdownThirdx();
+	afx_msg void OnSlowdownFourthx();
+	afx_msg void OnSlowdownFifthx();
 };
 
 #ifndef _DEBUG  // debug version in WaveEditView.cpp
