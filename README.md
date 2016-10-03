@@ -6,6 +6,8 @@ Play and Edit WAV files with this program.
   
   The effects are under the filters pull down menu (Echo, speed up, slow down, reverse, etc..). 
   
+  You can zoom in and zoom out using the buttons located under the view tab
+  
   There is also a cut/copy/paste options as well.
   
   Some Helpful shortcuts include 
