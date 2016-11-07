@@ -16,3 +16,6 @@ Play and Edit WAV files with this program.
   - ctrl+x = cut
   - ctrl+c = copy
   - ctrl+v = paste
+
+![Screenshot1](https://github.com/carlso70/WaveEdit/blob/master/waveScreen.PNG?raw=true)
+![Screenshot2](https://github.com/carlso70/WaveEdit/blob/master/filters.png?raw=true)
